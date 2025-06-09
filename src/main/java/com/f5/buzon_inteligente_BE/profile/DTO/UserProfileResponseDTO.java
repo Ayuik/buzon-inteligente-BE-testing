@@ -11,17 +11,20 @@ public class UserProfileResponseDTO {
     private String userEmail;
 
     private String permanentCredential;
+    
+    private long profileId;
 
-    public UserProfileResponseDTO() {
+	public UserProfileResponseDTO() {
     }
 
     public UserProfileResponseDTO(String userDni, String userName, String userSurname, String userEmail,
-            String permanentCredential) {
+            String permanentCredential, long profileId) {
         this.userDni = userDni;
         this.userName = userName;
         this.userSurname = userSurname;
         this.userEmail = userEmail;
         this.permanentCredential = permanentCredential;
+        this.profileId = profileId;
     }
 
     public static UserProfileResponseDTO fromEntities(User user, Profile profile) {
@@ -30,7 +33,8 @@ public class UserProfileResponseDTO {
                 user.getUserName(),
                 user.getUserSurname(),
                 user.getUserEmail(),
-                profile.getPermanentCredential()
+                profile.getPermanentCredential(),
+                profile.getId()
 
         );
     }
@@ -70,5 +74,13 @@ public class UserProfileResponseDTO {
     public String getPermanentCredential() {
         return permanentCredential;
     }
+
+    public long getProfileId() {
+		return profileId;
+	}
+
+	public void setProfileId(long profileId) {
+		this.profileId = profileId;
+	}
 
 }
