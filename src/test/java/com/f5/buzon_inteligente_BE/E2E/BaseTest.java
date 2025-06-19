@@ -1,4 +1,4 @@
-package E2E;
+package com.f5.buzon_inteligente_BE.E2E;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
