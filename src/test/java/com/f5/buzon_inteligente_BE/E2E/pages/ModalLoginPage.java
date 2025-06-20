@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ModalLoginPage {
@@ -14,6 +15,7 @@ public class ModalLoginPage {
     private final WebDriverWait wait;
 
     private final By modalTitleLocator = By.tagName("h3");
+    private final By closeButtonLocator = By.xpath("//button[normalize-space(text())='Aceptar']");
     private static final String EXPECTED_TITLE = "Login exitoso";
 
     public ModalLoginPage(WebDriver driver) {
@@ -30,7 +32,14 @@ public class ModalLoginPage {
                 .map(WebElement::getText)
                 .filter(EXPECTED_TITLE::equals)
                 .findFirst()
-                .orElseThrow(
-                        () -> new NoSuchElementException("El modal con texto '" + EXPECTED_TITLE + "' no apareció"));
+                .orElseThrow(() -> new NoSuchElementException("El modal con texto '" + EXPECTED_TITLE + "' no apareció"));
+    }
+
+    public void closeModal() {
+        wait.until(ExpectedConditions.elementToBeClickable(closeButtonLocator));
+        driver.findElement(closeButtonLocator).click();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(modalTitleLocator));
     }
 }
+
+
