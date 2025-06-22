@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.test.context.ActiveProfiles;
+import static com.f5.buzon_inteligente_BE.E2E.utils.ScreenshotUtil.takeScreenshot;
 
 import com.f5.buzon_inteligente_BE.E2E.base.BaseTest;
 
@@ -22,6 +23,8 @@ public class LoginE2ETest extends BaseTest {
 
         String modalTitle = modalLoginPage.waitForModalTitle();
         assertThat(modalTitle, equalTo("Login exitoso"));
+
+        takeScreenshot(driver, "login_exitoso");
     }
 
     @Test
