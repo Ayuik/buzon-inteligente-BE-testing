@@ -16,11 +16,21 @@ public class LoginE2ETest extends BaseTest {
     @Test
     @DisplayName("User should log in and reach user dashboard")
     void userShouldLogInAndSeeSuccessModal() {
-   
+
         loginPage.goToLoginPage();
         loginPage.loginAs("bobesponja@example.com", "bob12345");
 
         String modalTitle = modalLoginPage.waitForModalTitle();
         assertThat(modalTitle, equalTo("Login exitoso"));
     }
+
+    @Test
+    @DisplayName("Should not login with incorrect password")
+    void shouldNotLoginWithIncorrectPassword() {
+        loginPage.goToLoginPage();
+        loginPage.loginAs("bobesponja@example.com", "wrongPassword");
+
+        assertThat(loginPage.hasLoginErrorMessage(), equalTo(true));
+    }
+
 }
