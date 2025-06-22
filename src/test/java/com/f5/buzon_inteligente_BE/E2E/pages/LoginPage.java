@@ -1,9 +1,14 @@
 package com.f5.buzon_inteligente_BE.E2E.pages;
 
+import java.time.Duration;
 import java.util.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
     private final WebDriver driver;
@@ -48,4 +53,15 @@ public class LoginPage {
         enterPassword(password);
         submitLogin();
     }
+
+    public boolean hasLoginErrorMessage() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebElement errorElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login-error")));
+            return errorElement.getText().contains("Credenciales inválidas");
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
 }
